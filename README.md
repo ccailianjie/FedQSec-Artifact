@@ -20,7 +20,6 @@ The reported experiments use the environment specified in the manuscript:
 
 | Component | Environment |
 | --- | --- |
-| Processor | Intel(R) Core(TM) i7-14650HX |
 | Operating system | Ubuntu 22.04 LTS |
 | Python | 3.10 |
 | Polynomial library | NTL 11.5.1 |
@@ -51,7 +50,3 @@ from the following source repositories:
 
 Please follow the access conditions and licensing terms provided by each source.
 
-## Code Availability
-
-The complete source code and full implementation will be further uploaded after
-manuscript acceptance.
