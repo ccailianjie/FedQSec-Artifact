@@ -1,0 +1,7 @@
+poisoning_ratio,filter,reward_mean,reward_std,violation_mean_percent,violation_std_percent,matching_mean_percent,matching_std_percent
+0.10,no,0.378,0.038,79.706,16.002,85.948,3.205
+0.10,yes,0.474,0.013,0.054,0.035,58.406,0.706
+0.20,no,0.367,0.043,87.652,6.448,70.721,4.803
+0.20,yes,0.473,0.014,0.039,0.045,58.476,0.712
+0.30,no,0.358,0.043,91.960,3.115,55.449,3.033
+0.30,yes,0.471,0.011,0.056,0.042,57.735,0.930

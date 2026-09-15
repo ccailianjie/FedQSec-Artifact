@@ -1,0 +1,50 @@
+state_space:
+  dimensions: [speed, message_priority, traffic_density, credit_score]
+  levels_per_dimension: 3
+  total_states: 81
+  sampling_period_ms: 10
+  median_filter_window: 3
+  discretization:
+    speed_kmh: ["[0, 30)", "[30, 60)", "[60, 120]"]
+    message_priority: [non_urgent, normal, urgent]
+    traffic_density_vehicles_per_km: ["<10", "10-30", ">30"]
+    credit_score: ["<60", "60-89", ">=90"]
+
+action_space:
+  parameter_sets: [I, II, III]
+  modes: [signature, encryption, signcryption]
+  total_actions: 9
+
+default_training:
+  learning_rate_alpha: 0.1
+  discount_factor_gamma: 0.9
+  epsilon_start: 0.9
+  epsilon_decay_per_iteration: 0.001
+  epsilon_end_iteration: 900
+  local_iterations_per_upload: 100
+
+offline_pretraining:
+  iterations: 100000
+  learning_rate_alpha: 0.1
+  discount_factor_gamma: 0.9
+  epsilon_schedule: linear_0.9_to_0
+
+evaluation:
+  independent_seeds: 10
+  seed_range: "20260529-20260538"
+  train_test_split: [0.8, 0.2]
+  test_samples: 100000
+  auxiliary_parameters:
+    eta_1: 0.5
+    eta_2: 0.5
+    tau_1: 0.3
+    tau_2: 0.2
+
+poisoning_experiment:
+  local_training_agents: 20
+  local_steps_per_round: 100
+  poisoning_ratios: [0.1, 0.2, 0.3]
+  credit_filter_threshold: 60
+  consecutive_rounds_before_removal: 3
+  training_rounds: 300
+  independent_seeds: 10

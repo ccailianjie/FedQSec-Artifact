@@ -1,0 +1,16 @@
+simulator:
+  sumo_version: "1.12"
+  veins_version: "5.3"
+  access_technology: IEEE_802.11p
+
+scenario:
+  topology: Manhattan urban road network from OpenStreetMap
+  duration_seconds: 600
+  safety_beacon_interval_seconds: 1
+
+evaluation:
+  pdr_vehicle_counts: [100, 200, 300]
+  aeed_vehicle_counts: [10, 20, 30, 40]
+  metrics:
+    - packet_delivery_ratio
+    - average_end_to_end_delay

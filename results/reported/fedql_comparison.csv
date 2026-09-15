@@ -1,0 +1,6 @@
+method,reward_mean,reward_std,violation_mean_percent,violation_std_percent,convergence_rounds,matching_mean_percent,matching_std_percent
+FedQL,0.303,0.007,1.273,0.391,800-900,84.7,0.8
+Centralized Q-learning,0.315,0.004,1.518,0.966,1100-1200,91.1,0.2
+Independent Q-learning,0.303,0.004,9.087,2.138,800-900,82.2,1.7
+Fixed static policy,0.215,,71.334,0.354,,12.2,0.1
+Expert-rule oracle,0.315,,,,,,

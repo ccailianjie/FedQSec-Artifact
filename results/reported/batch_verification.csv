@@ -1,0 +1,6 @@
+ciphertexts,per_verify_ms,batch_verify_ms,speedup,communication_saving_percent
+10,13.49,4.29,3.1,95.0
+20,27.06,8.17,3.3,97.5
+50,70.37,17.97,3.9,99.0
+100,140.22,34.65,4.0,99.5
+200,272.79,68.92,4.0,99.7

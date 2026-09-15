@@ -1,0 +1,17 @@
+consensus: PBFT
+deployment: cloud_consortium_nodes
+
+simulation:
+  full_nodes: 20
+  inter_node_propagation_delay_ms: 5
+  cloud_feedback_time_ms: 10
+  reported_pbft_consensus_delay_ms: 1021
+
+ledger:
+  assumed_vehicle_count: 10000
+  trust_update_interval_minutes: 10
+  transaction_size_bytes: 2009
+  maximum_transactions_per_block: 1000
+  block_header_size_bytes: 80
+  reported_blocks_per_year: 525600
+  reported_storage_tb_per_year: 1.06

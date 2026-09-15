@@ -1,0 +1,10 @@
+parameter,value,reward_mean,reward_std,violation_mean_percent,violation_std_percent,convergence_mean_rounds,convergence_std_rounds,matching_mean_percent,matching_std_percent
+gamma,0.85,0.309,0.006,1.114,0.393,,,,
+gamma,0.90,0.309,0.014,0.047,0.085,,,,
+gamma,0.95,0.291,0.008,2.466,0.047,,,,
+alpha,0.05,0.290,0.013,1.261,0.721,880,123,,
+alpha,0.10,0.309,0.014,0.047,0.085,800,10,,
+alpha,0.20,0.316,0.011,0.014,0.029,860,97,,
+epsilon_decay,0.0005,0.303,0.009,1.253,0.577,,,84.59,1.10
+epsilon_decay,0.0010,0.309,0.014,0.047,0.085,,,85.24,1.53
+epsilon_decay,0.0020,0.290,0.013,0.400,0.101,,,67.70,6.14

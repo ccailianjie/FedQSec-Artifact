@@ -1,0 +1,12 @@
+parameter,value,unit
+Inter-node propagation delay,5,ms
+Inter-vehicle communication delay,N_m * 5.18,ms
+Trust-score upload/update time,N_m * 8.04,ms
+Cloud feedback time,10,ms
+PBFT consensus delay,1021,ms
+Transaction size,2009,bytes
+Trust update interval,10,min
+Maximum transactions per block,1000,transactions
+Block header size,80,bytes
+Blocks per year,525600,blocks
+Cloud storage requirement,1.06,TB/year

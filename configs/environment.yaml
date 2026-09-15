@@ -1,0 +1,13 @@
+hardware:
+  processor: Intel(R) Core(TM) i7-14650HX
+
+software:
+  operating_system: Ubuntu 22.04 LTS
+  python: "3.10"
+  polynomial_library: NTL 11.5.1
+  network_simulation:
+    sumo: "1.12"
+    veins: "5.3"
+  blockchain_simulation:
+    omnetpp: "6.0.3"
+    language: C++

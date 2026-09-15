@@ -1,0 +1,4 @@
+group,detection_rate_percent,false_positive_rate_percent,per_message_delay_ms
+Dynamic accumulator,100.0,0.00,1.689
+Without accumulator,0.00,0.00,
+Timestamp fixed window,18.5,0.89,0.002

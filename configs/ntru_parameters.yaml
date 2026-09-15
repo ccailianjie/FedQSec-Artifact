@@ -1,0 +1,41 @@
+scheme: NTRU-GSC
+default_parameter_set: I
+
+parameter_sets:
+  I:
+    profile: lightweight
+    ring_dimension_d: 512
+    modulus_q: 12289
+    keygen_gaussian_sigma: 1.1
+    masking_gaussian_sigma_y: 75
+    challenge_hamming_weight_omega: 32
+    security_bits: 128
+  II:
+    profile: standard
+    ring_dimension_d: 768
+    modulus_q: 18433
+    keygen_gaussian_sigma: 1.5
+    masking_gaussian_sigma_y: 140
+    challenge_hamming_weight_omega: 48
+    security_bits: 192
+  III:
+    profile: high
+    ring_dimension_d: 1024
+    modulus_q: 40961
+    keygen_gaussian_sigma: 1.9
+    masking_gaussian_sigma_y: 240
+    challenge_hamming_weight_omega: 64
+    security_bits: 256
+
+published_bounds:
+  coefficient_bound_y: "14 * sigma_y"
+  coefficient_bound_z: "14 * sigma_y"
+  norm_bound_z: "14 * sigma_y * sqrt(d)"
+  private_key_norm_bound: "2 * sigma * sqrt(d)"
+  private_key_infinity_norm_bound: 1
+  rejection_sampling_constant: "exp(1 + 1/144) ~= 2.736"
+
+mode_flags:
+  signature: [0, 0]
+  encryption: [0, 1]
+  signcryption: [1, 1]
