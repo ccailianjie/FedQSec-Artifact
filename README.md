@@ -96,16 +96,6 @@ following public sources:
 Please follow the access conditions and licensing terms provided by each
 source.
 
-## Artifact Scope
-
-This submission artifact contains a runnable reduced workflow, selected public
-framework modules, manuscript-reported parameters, and reported result tables.
-It does not redistribute datasets, trained weights, raw logs, plotting code,
-or the complete cryptographic and long-running training implementation.
-
-The complete source code and full implementation will be further uploaded
-after manuscript acceptance.
-
 ## License
 
 This artifact is released under the [MIT License](LICENSE).
