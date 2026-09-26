@@ -25,12 +25,12 @@ research implementation details.
 The runnable example connects the main architectural stages:
 
 1. vehicle messages and context observations are collected by OBUs;
-2. each OBU encodes an 81-state context and performs reduced local tabular
+2. each OBU encodes an 81-state context and performs local tabular
    Q-learning updates over nine security actions;
 3. RSUs apply credit-assisted admission and regional Q-table aggregation;
 4. the cloud aggregates regional tables and redistributes the global policy;
 5. the selected action determines the NTRU-GSC mode and parameter set;
-6. the protected packet updates the dynamic accumulator; and
+6. the protected packet updates the dynamic accumulator; 
 7. an audit record passes through a reduced PBFT commit interface.
 
 ## Environment
