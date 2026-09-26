@@ -1,52 +1,111 @@
 # FedQSec Artifact
 
-This repository provides a compact reference implementation of the main
-FedQSec workflow for the accompanying manuscript.
+This repository provides a compact, executable artifact for the FedQSec
+framework described in the accompanying manuscript. It exposes the system
+workflow, selected framework modules, manuscript-reported configurations, and
+machine-readable summaries of the reported results while omitting private
+research implementation details.
 
-## Contents
+## Repository Contents
 
-- `src/fedqsec/`: selected executable modules for mode control, dynamic
-  accumulator updates, federated Q-table updates, trust filtering, and workflow
-  orchestration.
-- `configs/`: parameters and experiment settings explicitly reported in the
-  manuscript; unreported implementation settings are omitted.
-- `examples/`: a lightweight runnable example of the public workflow.
-- `results/reported/`: machine-readable CSV summaries aligned with the values
-  reported in the manuscript tables.
+- `src/fedqsec/`: selected modules for tabular Q-learning, hierarchical
+  aggregation, credit-assisted filtering, mode control, dynamic accumulator
+  updates, and workflow orchestration.
+- `examples/demo.py`: a standard-library-only executable demonstration of the
+  end-to-end FedQSec data flow.
+- `configs/`: parameters and experimental settings explicitly reported in the
+  manuscript. Unreported implementation parameters are intentionally omitted.
+- `results/reported/`: CSV summaries corresponding to Tables 4, 5, and 7-12 of
+  the manuscript.
+- `docs/reproducibility.md`: environment, execution, and artifact-to-paper
+  mapping.
+
+## Lightweight End-to-End Workflow
+
+The runnable example connects the main architectural stages:
+
+1. vehicle messages and context observations are collected by OBUs;
+2. each OBU encodes an 81-state context and performs reduced local tabular
+   Q-learning updates over nine security actions;
+3. RSUs apply credit-assisted admission and regional Q-table aggregation;
+4. the cloud aggregates regional tables and redistributes the global policy;
+5. the selected action determines the NTRU-GSC mode and parameter set;
+6. the protected packet updates the dynamic accumulator; and
+7. an audit record passes through a reduced PBFT commit interface.
+
+The example uses a reduced topology of one cloud node, two RSUs, six OBUs, and
+four PBFT replicas so that the complete data flow can run locally. The reported
+experiments use the scales and settings listed in `configs/`.
 
 ## Environment
 
-The reported experiments use the environment specified in the manuscript:
+The manuscript reports the following experimental environment:
 
-| Component | Environment |
+| Component | Reported environment |
 | --- | --- |
 | Operating system | Ubuntu 22.04 LTS |
-| Python | 3.10 |
+| GPU | 2 NVIDIA GeForce RTX 4090 D GPUs (48 GB VRAM) |
+| CPU | 10-core CPU |
+| Memory | 56 GB DDR4 |
+| Languages | C++ and Python 3.10 |
 | Polynomial library | NTL 11.5.1 |
 | Network simulation | SUMO 1.12 and Veins 5.3 |
-| Blockchain simulation | OMNeT++ 6.0.3 and C++ |
+| Blockchain simulation | C++ on OMNeT++ |
 
-The lightweight public example uses only the Python standard library and can
-be run with Python 3.10:
+The repository configuration records OMNeT++ 6.0.3 as the implementation
+version used for the public artifact. PyTorch is not required.
+
+## Quick Start
+
+Python 3.10 or later is sufficient for the lightweight workflow:
 
 ```bash
 python examples/demo.py
 ```
 
-## Reproduction
+Expected completion message:
 
-The repository provides the core workflow, selected executable modules,
-published experiment parameters, and reported result summaries to support
-reproduction and inspection of the evaluation procedure described in the
-manuscript.
+```text
+Workflow completed successfully.
+```
+
+No dataset download, model weight, GPU, SUMO, Veins, NTL, or OMNeT++
+installation is required for this reduced example.
+
+## Paper-to-Artifact Mapping
+
+| Manuscript component | Public artifact |
+| --- | --- |
+| NTRU-GSC parameter sets and modes | `configs/ntru_parameters.yaml`, `src/fedqsec/modes.py` |
+| Dynamic accumulator workflow | `src/fedqsec/accumulator.py` |
+| 81-state, 9-action FedQL model | `configs/fedql.yaml`, `src/fedqsec/fedql.py` |
+| Cloud-fog-vehicle orchestration | `src/fedqsec/framework.py`, `examples/demo.py` |
+| Credit-assisted update filtering | `src/fedqsec/trust.py`, `examples/demo.py` |
+| SUMO/Veins settings | `configs/network.yaml` |
+| PBFT and storage settings | `configs/blockchain.yaml` |
+| Manuscript table values | `results/reported/` |
 
 ## Datasets
 
-The datasets are not redistributed in this repository. They can be obtained
-from the following source repositories:
+Datasets are not redistributed in this repository. The manuscript uses the
+following public sources:
 
 - [VeReMi position-falsification dataset](https://github.com/aektasharma/Veremi-dataset-classification.git)
 - [NGSIM US-101 vehicle-trajectory dataset mirror](https://gitcode.com/open-source-toolkit/e3a10)
 
-Please follow the access conditions and licensing terms provided by each source.
+Please follow the access conditions and licensing terms provided by each
+source.
 
+## Artifact Scope
+
+This submission artifact contains a runnable reduced workflow, selected public
+framework modules, manuscript-reported parameters, and reported result tables.
+It does not redistribute datasets, trained weights, raw logs, plotting code,
+or the complete cryptographic and long-running training implementation.
+
+The complete source code and full implementation will be further uploaded
+after manuscript acceptance.
+
+## License
+
+This artifact is released under the [MIT License](LICENSE).
