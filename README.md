@@ -33,10 +33,6 @@ The runnable example connects the main architectural stages:
 6. the protected packet updates the dynamic accumulator; and
 7. an audit record passes through a reduced PBFT commit interface.
 
-The example uses a reduced topology of one cloud node, two RSUs, six OBUs, and
-four PBFT replicas so that the complete data flow can run locally. The reported
-experiments use the scales and settings listed in `configs/`.
-
 ## Environment
 
 The manuscript reports the following experimental environment:
