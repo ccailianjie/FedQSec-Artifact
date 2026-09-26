@@ -48,22 +48,6 @@ The manuscript reports the following experimental environment:
 | Network simulation | SUMO 1.12 and Veins 5.3 |
 | Blockchain simulation | C++ and OMNeT++ 6.0.3|
 
-## Quick Start
-
-Python 3.10 or later is sufficient for the lightweight workflow:
-
-```bash
-python examples/demo.py
-```
-
-Expected completion message:
-
-```text
-Workflow completed successfully.
-```
-
-No dataset download, model weight, GPU, SUMO, Veins, NTL, or OMNeT++
-installation is required for this reduced example.
 
 ## Paper-to-Artifact Mapping
 
