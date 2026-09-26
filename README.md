@@ -50,10 +50,7 @@ The manuscript reports the following experimental environment:
 | Languages | C++ and Python 3.10 |
 | Polynomial library | NTL 11.5.1 |
 | Network simulation | SUMO 1.12 and Veins 5.3 |
-| Blockchain simulation | C++ on OMNeT++ |
-
-The repository configuration records OMNeT++ 6.0.3 as the implementation
-version used for the public artifact. PyTorch is not required.
+| Blockchain simulation | C++ on OMNeT++ 6.0.3|
 
 ## Quick Start
 
