@@ -1,8 +1,6 @@
 # Experiment Configurations
 
-These files collect parameters explicitly reported in the manuscript. Values
-that are not stated in the manuscript are not included.
-
+These files collect parameters explicitly reported in the manuscript. 
 - `ntru_parameters.yaml`: the three published NTRU-GSC parameter sets.
 - `fedql.yaml`: the published state/action settings and training parameters.
 - `network.yaml`: the reported SUMO/Veins communication setup.
