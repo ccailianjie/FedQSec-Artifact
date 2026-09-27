@@ -1,78 +1,94 @@
-# FedQSec Artifact
+# Welcome to FedQSec
 
-This repository provides a compact, executable artifact for the FedQSec
-framework described in the accompanying manuscript. It exposes the system
-workflow, selected framework modules, manuscript-reported configurations, and
-machine-readable summaries of the reported results while omitting private
-research implementation details.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## Repository Contents
+FedQSec combines federated Q-learning, adaptive NTRU-GSC modes, credit-based
+update filtering, a dynamic accumulator, and blockchain auditing for IoV
+security. This repository provides the framework components, reported settings,
+and table summaries associated with the manuscript.
 
-- `src/fedqsec/`: selected modules for tabular Q-learning, hierarchical
-  aggregation, credit-assisted filtering, mode control, dynamic accumulator
-  updates, and workflow orchestration.
-- `examples/demo.py`: a standard-library-only executable demonstration of the
-  end-to-end FedQSec data flow.
-- `configs/`: parameters and experimental settings explicitly reported in the
-  manuscript. Unreported implementation parameters are intentionally omitted.
-- `results/reported/`: CSV summaries corresponding to Tables 4, 5, and 7-12 of
-  the manuscript.
-- `docs/reproducibility.md`: environment, execution, and artifact-to-paper
-  mapping.
+## Features
 
-## Lightweight End-to-End Workflow
+| Category | Details |
+| --- | --- |
+| Federated learning | Vehicle, RSU, and cloud roles with an 81-state, nine-action Q-table ([`fl/`](fl/)) |
+| Aggregation | Credit filtering and weighted regional aggregation ([`aggregators/`](aggregators/)) |
+| Poisoning case | Reward reversal input for a small local update ([`attackers/`](attackers/)) |
+| Data processing | Vehicle context encoding ([`datapreprocessor/`](datapreprocessor/)) |
+| Cryptography | Ring operations, mode selection, protection interface, and accumulator ([`crypto/`](crypto/)) |
+| Blockchain | Audit receipt and PBFT round accounting ([`blockchain/`](blockchain/)) |
 
-The runnable example connects the main architectural stages:
+## Federated Q-Learning Components
 
-1. vehicle messages and context observations are collected by OBUs;
-2. each OBU encodes an 81-state context and performs local tabular
-   Q-learning updates over nine security actions;
-3. RSUs apply credit-assisted admission and regional Q-table aggregation;
-4. the cloud aggregates regional tables and redistributes the global policy;
-5. the selected action determines the NTRU-GSC mode and parameter set;
-6. the protected packet updates the dynamic accumulator; 
-7. an audit record passes through a reduced PBFT commit interface.
+| Component | Source File | Role |
+| --- | --- | --- |
+| Tabular Q-learning | [`fl/algorithms/fedql.py`](fl/algorithms/fedql.py) | Action choice and temporal-difference update |
+| Local training | [`fl/local_training.py`](fl/local_training.py) | Local transitions and exploration schedule |
+| Vehicle | [`fl/client.py`](fl/client.py) | Prepares local Q-table updates |
+| RSU | [`fl/server.py`](fl/server.py) | Filters updates and forms a regional table |
+| Cloud | [`fl/coordinator.py`](fl/coordinator.py) | Combines regional tables and selects an action |
+| Round workflow | [`fl/workflow.py`](fl/workflow.py) | Connects vehicles, RSUs, cloud, protection, and audit |
 
-## Environment
+## Security and Audit Components
 
-The manuscript reports the following experimental environment:
+| Component | Source File | Role |
+| --- | --- | --- |
+| Credit filter | [`aggregators/trust.py`](aggregators/trust.py) | Admits updates above the reported credit threshold |
+| Aggregation | [`aggregators/aggregation.py`](aggregators/aggregation.py) | Computes weighted Q-table averages |
+| Reward reversal | [`attackers/reward_reversal.py`](attackers/reward_reversal.py) | Changes a local reward sign |
+| NTRU ring helpers | [`crypto/polynomial.py`](crypto/polynomial.py) | Coefficient sampling, norm check, and ring multiplication |
+| Protection branches | [`crypto/modes.py`](crypto/modes.py), [`crypto/crypto_core.py`](crypto/crypto_core.py) | Dispatches signature, encryption, and signcryption modes |
+| Accumulator | [`crypto/accumulator.py`](crypto/accumulator.py) | Updates a message-linked digest state |
+| PBFT accounting | [`blockchain/audit.py`](blockchain/audit.py), [`blockchain/pbft_study.py`](blockchain/pbft_study.py) | Generates an audit receipt and round estimates |
 
-| Component | Reported environment |
+## Getting Started
+
+Run the connected example and two small component cases with Python 3.10:
+
+```bash
+python main.py
+python batchrun.py
+python blockchain/pbft_study.py
+```
+
+`main.py` sends six vehicle observations to two RSUs, filters a low-credit
+update, combines regional Q-tables, selects a security action, and records an
+audit receipt. Its message branches use hash-based adapters.
+
+## Experiment Environment
+
+| Component | Manuscript environment |
 | --- | --- |
 | Operating system | Ubuntu 22.04 LTS |
 | GPU | 2 NVIDIA GeForce RTX 4090 D GPUs (48 GB VRAM) |
-| CPU | 10-core CPU |
-| Memory | 56 GB DDR4 |
+| CPU and memory | 10-core CPU; 56 GB DDR4 |
 | Languages | C++ and Python 3.10 |
 | Polynomial library | NTL 11.5.1 |
-| Network simulation | SUMO 1.12 and Veins 5.3 |
-| Blockchain simulation | C++ and OMNeT++ 6.0.3|
+| Network simulation | SUMO 1.12; Veins 5.3 |
+| Blockchain simulation | C++ on OMNeT++ 6.0.3 |
 
+The runnable example uses in-memory messages. The reported experiment
+parameters are in [`configs/`](configs/), with the software environment in
+[`environment.yaml`](environment.yaml). The ten reported seeds are in
+[`configs/seeds.txt`](configs/seeds.txt).
 
-## Paper-to-Artifact Mapping
+## Results and Datasets
 
-| Manuscript component | Public artifact |
-| --- | --- |
-| NTRU-GSC parameter sets and modes | `configs/ntru_parameters.yaml`, `src/fedqsec/modes.py` |
-| Dynamic accumulator workflow | `src/fedqsec/accumulator.py` |
-| 81-state, 9-action FedQL model | `configs/fedql.yaml`, `src/fedqsec/fedql.py` |
-| Cloud-fog-vehicle orchestration | `src/fedqsec/framework.py`, `examples/demo.py` |
-| Credit-assisted update filtering | `src/fedqsec/trust.py`, `examples/demo.py` |
-| SUMO/Veins settings | `configs/network.yaml` |
-| PBFT and storage settings | `configs/blockchain.yaml` |
-| Manuscript table values | `results/reported/` |
-
-## Datasets
-
-Datasets are not redistributed in this repository. The manuscript uses the
-following public sources:
+[`results/reported/`](results/reported/) contains CSV summaries for manuscript
+Tables 4, 5, and 7–12. The data sources are:
 
 - [VeReMi position-falsification dataset](https://github.com/aektasharma/Veremi-dataset-classification.git)
 - [NGSIM US-101 vehicle-trajectory dataset mirror](https://gitcode.com/open-source-toolkit/e3a10)
 
-Please follow the access conditions and licensing terms provided by each
-source.
+See [`docs/reproducibility.md`](docs/reproducibility.md) for the environment,
+settings, and manuscript table mapping.
+
+## Code Availability
+
+The complete source code and full implementation will be further uploaded
+after manuscript acceptance.
 
 ## License
 
-This artifact is released under the [MIT License](LICENSE).
+The repository is provided under the [MIT License](LICENSE).

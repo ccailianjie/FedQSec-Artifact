@@ -11,4 +11,5 @@ license = { file = "LICENSE" }
 dependencies = []
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["."]
+include = ["fl*", "aggregators*", "attackers*", "blockchain*", "crypto*", "datapreprocessor*"]
