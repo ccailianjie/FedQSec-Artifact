@@ -2,20 +2,16 @@
 
 from __future__ import annotations
 
-from datapreprocessor.data_utils import VehicleMessage
+from pathlib import Path
+
+from datapreprocessor.data_utils import load_vehicle_messages
 from fl.workflow import FedQSecWorkflow
 from global_args import parse_args
 
 
 def main() -> None:
-    messages = [
-        VehicleMessage("obu-1", 88, 3, 36, 94, b"emergency-braking"),
-        VehicleMessage("obu-2", 52, 2, 22, 90, b"lane-change"),
-        VehicleMessage("obu-3", 34, 1, 8, 18, b"inconsistent-position"),
-        VehicleMessage("obu-4", 82, 3, 34, 92, b"collision-warning"),
-        VehicleMessage("obu-5", 48, 2, 24, 86, b"traffic-density"),
-        VehicleMessage("obu-6", 22, 1, 7, 84, b"periodic-status"),
-    ]
+    sample = Path(__file__).resolve().parent / "data" / "sample_vehicle_messages.csv"
+    messages = load_vehicle_messages(sample)
     workflow = FedQSecWorkflow()
     workflow.attach([message.vehicle_id for message in messages])
     result = workflow.run_round(messages, target_id=parse_args().target)

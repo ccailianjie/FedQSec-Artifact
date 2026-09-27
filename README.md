@@ -14,10 +14,32 @@ and table summaries associated with the manuscript.
 | --- | --- |
 | Federated learning | Vehicle, RSU, and cloud roles with an 81-state, nine-action Q-table ([`fl/`](fl/)) |
 | Aggregation | Credit filtering and weighted regional aggregation ([`aggregators/`](aggregators/)) |
-| Poisoning case | Reward reversal input for a small local update ([`attackers/`](attackers/)) |
+| Poisoning case | Reward reversal inputs for local updates ([`attackers/`](attackers/)) |
 | Data processing | Vehicle context encoding ([`datapreprocessor/`](datapreprocessor/)) |
 | Cryptography | Ring operations, mode selection, protection interface, and accumulator ([`crypto/`](crypto/)) |
-| Blockchain | Audit receipt and PBFT round accounting ([`blockchain/`](blockchain/)) |
+| Blockchain | Audit receipts, PBFT phase handling, and network relay ([`blockchain/`](blockchain/)) |
+| Network simulation | Veins scenario and IEEE 802.11p settings ([`network_simulation/`](network_simulation/)) |
+
+## Project Structure
+
+```text
+FedQSec-Artifact/
+├── fl/                  # Vehicle, RSU, cloud, and FedQL components
+├── aggregators/         # Regional aggregation and credit admission
+├── attackers/           # Reward-reversal input
+├── datapreprocessor/    # Vehicle context encoding
+├── crypto/              # Ring helpers, mode interface, accumulator
+├── blockchain/          # PBFT phases, topology, and audit receipt
+├── network_simulation/  # Veins scenario and radio configuration
+├── configs/             # Manuscript-reported settings and seeds
+├── data/                # Vehicle-message inputs for the example
+├── examples/            # Detailed executable architecture example
+├── scripts/             # One-command run and reported-CSV inspection
+├── results/reported/    # Manuscript table summaries
+├── docs/                # Environment and paper-to-artifact mapping
+├── main.py              # Modular workflow entry point
+└── batchrun.py          # Regular/reward-reversal comparison
+```
 
 ## Federated Q-Learning Components
 
@@ -29,6 +51,7 @@ and table summaries associated with the manuscript.
 | RSU | [`fl/server.py`](fl/server.py) | Filters updates and forms a regional table |
 | Cloud | [`fl/coordinator.py`](fl/coordinator.py) | Combines regional tables and selects an action |
 | Round workflow | [`fl/workflow.py`](fl/workflow.py) | Connects vehicles, RSUs, cloud, protection, and audit |
+| Detailed data-flow example | [`examples/demo.py`](examples/demo.py) | Runs the vehicle–RSU–cloud–crypto–audit sequence with explicit classes and trace output |
 
 ## Security and Audit Components
 
@@ -41,20 +64,42 @@ and table summaries associated with the manuscript.
 | Protection branches | [`crypto/modes.py`](crypto/modes.py), [`crypto/crypto_core.py`](crypto/crypto_core.py) | Dispatches signature, encryption, and signcryption modes |
 | Accumulator | [`crypto/accumulator.py`](crypto/accumulator.py) | Updates a message-linked digest state |
 | PBFT accounting | [`blockchain/audit.py`](blockchain/audit.py), [`blockchain/pbft_study.py`](blockchain/pbft_study.py) | Generates an audit receipt and round estimates |
+| PBFT simulation components | [`blockchain/simulation/`](blockchain/simulation/) | Includes phase vote tracking, transaction messages, relay timing, and the cloud topology |
 
-## Getting Started
+## Quick Start
 
-Run the connected example and two small component cases with Python 3.10:
+Use Python 3.10. A Conda environment is provided in
+[`environment.yml`](environment.yml). From the repository root:
+
+```bash
+bash scripts/run_artifact.sh
+```
+
+The script runs the data-flow example, a reward-reversal case,
+PBFT round accounting, and inspection of the included reported CSV summaries.
+Both workflow entry points read the same fixed synthetic input file in
+[`data/`](data/); component random generators use fixed seeds. Manuscript
+evaluation seeds are listed in [`configs/seeds.txt`](configs/seeds.txt).
+The commands can also be run separately:
 
 ```bash
 python main.py
+python examples/demo.py
 python batchrun.py
 python blockchain/pbft_study.py
+python scripts/inspect_reported.py
 ```
 
-`main.py` sends six vehicle observations to two RSUs, filters a low-credit
-update, combines regional Q-tables, selects a security action, and records an
-audit receipt. Its message branches use hash-based adapters.
+`main.py` uses the package modules. `examples/demo.py` retains the longer
+connected example with state encoding, local updates, RSU filtering, cloud
+distribution, mode selection, accumulator updates, and a PBFT receipt.
+
+| Manuscript item | Public file | Command or inspection |
+| --- | --- | --- |
+| FedQL state/action flow | [`fl/`](fl/), [`examples/demo.py`](examples/demo.py) | `python examples/demo.py` |
+| Credit filtering and reward reversal | [`aggregators/`](aggregators/), [`attackers/`](attackers/) | `python batchrun.py` |
+| PBFT quorum accounting | [`blockchain/`](blockchain/) | `python blockchain/pbft_study.py` |
+| Tables 4, 5, 7–12 | [`results/reported/`](results/reported/) | `python scripts/inspect_reported.py` |
 
 ## Experiment Environment
 
@@ -84,11 +129,6 @@ Tables 4, 5, and 7–12. The data sources are:
 See [`docs/reproducibility.md`](docs/reproducibility.md) for the environment,
 settings, and manuscript table mapping.
 
-## Code Availability
-
-The complete source code and full implementation will be further uploaded
-after manuscript acceptance.
-
 ## License
 
-The repository is provided under the [MIT License](LICENSE).
+The project-authored files are provided under the [MIT License](LICENSE).
