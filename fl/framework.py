@@ -5,17 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Protocol
 
-from .accumulator import AccumulatorState
-from .crypto_core import GeneralizedSigncryptionCore, ProtectedOutput
-from .modes import SecurityAction
-
-
-@dataclass(frozen=True)
-class ContextState:
-    speed: int
-    priority: int
-    density: int
-    credit: int
+from crypto.accumulator import AccumulatorState
+from crypto.crypto_core import GeneralizedSigncryptionCore, ProtectedOutput
+from crypto.modes import SecurityAction
+from datapreprocessor.data_utils import ContextState
 
 
 class DecisionEngine(Protocol):
@@ -42,4 +35,3 @@ class FedQSecController:
         output = self.crypto.generate(message, action, previous)
         self.audit.append(output)
         return output
-

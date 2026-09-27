@@ -32,8 +32,9 @@ published_bounds:
   coefficient_bound_z: "14 * sigma_y"
   norm_bound_z: "14 * sigma_y * sqrt(d)"
   private_key_norm_bound: "2 * sigma * sqrt(d)"
-  private_key_infinity_norm_bound: 1
+  private_key_infinity_norm_bound: "sigma * sqrt(2 * ln(4 * d))"
   rejection_sampling_constant: "exp(1 + 1/144) ~= 2.736"
+  challenge_space_size: "binomial(d, omega) * 2^omega"
 
 mode_flags:
   signature: [0, 0]

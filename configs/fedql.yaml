@@ -15,13 +15,26 @@ action_space:
   modes: [signature, encryption, signcryption]
   total_actions: 9
 
+hierarchical_federation:
+  cloud_servers: 1
+  fog_nodes: 4
+  vehicle_agents: 20
+  vehicles_per_fog_node: 5
+  local_iterations_per_upload: 100
+  regional_aggregation: credit_weighted_federated_average
+  global_aggregation: mean_of_regional_updates
+
 default_training:
   learning_rate_alpha: 0.1
   discount_factor_gamma: 0.9
   epsilon_start: 0.9
   epsilon_decay_per_iteration: 0.001
   epsilon_end_iteration: 900
-  local_iterations_per_upload: 100
+  reward_coefficients:
+    eta_1: 0.5
+    eta_2: 0.5
+    tau_1: 0.3
+    tau_2: 0.2
 
 offline_pretraining:
   iterations: 100000
@@ -29,22 +42,33 @@ offline_pretraining:
   discount_factor_gamma: 0.9
   epsilon_schedule: linear_0.9_to_0
 
+trust_feedback:
+  credit_filter_threshold: 60
+  high_similarity_threshold: 0.8
+  suspicious_similarity_threshold: 0.3
+  base_coefficient_lambda: 0.02
+  rejection_penalty_lambda: 0.1
+  consecutive_rounds_before_blacklist: 3
+
+datasets:
+  ngsim_valid_records: 4098933
+  veremi_preprocessed_records: 512434
+  train_test_split: [0.8, 0.2]
+  ngsim_test_samples: 100000
+  veremi_test_samples: 10000
+
 evaluation:
   independent_seeds: 10
   seed_range: "20260529-20260538"
-  train_test_split: [0.8, 0.2]
-  test_samples: 100000
-  auxiliary_parameters:
-    eta_1: 0.5
-    eta_2: 0.5
-    tau_1: 0.3
-    tau_2: 0.2
+  sensitivity_rounds: 1000
 
 poisoning_experiment:
   local_training_agents: 20
   local_steps_per_round: 100
   poisoning_ratios: [0.1, 0.2, 0.3]
+  attack: reward_reversal
   credit_filter_threshold: 60
   consecutive_rounds_before_removal: 3
   training_rounds: 300
   independent_seeds: 10
+

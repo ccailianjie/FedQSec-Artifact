@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import random
-from collections.abc import Hashable, Sequence
+from collections.abc import Hashable
 
 State = Hashable
 QTable = dict[tuple[State, int], float]
@@ -42,18 +42,3 @@ class TabularQAgent:
         updated = current + alpha * (reward + gamma * next_best - current)
         self.q[(state, action)] = updated
         return updated
-
-
-def federated_average(tables: Sequence[QTable], weights: Sequence[float]) -> QTable:
-    if not tables or len(tables) != len(weights):
-        raise ValueError("tables and weights must have the same non-zero length")
-    if any(weight < 0 for weight in weights) or sum(weights) <= 0:
-        raise ValueError("weights must be non-negative with a positive sum")
-    keys = set().union(*(table.keys() for table in tables))
-    total_weight = sum(weights)
-    return {
-        key: sum(weight * table.get(key, 0.0) for table, weight in zip(tables, weights))
-        / total_weight
-        for key in keys
-    }
-
