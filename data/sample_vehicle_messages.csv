@@ -1,0 +1,7 @@
+vehicle_id,speed_kmh,priority,vehicles_per_km,credit,payload
+obu-1,88,3,36,94,emergency-braking
+obu-2,52,2,22,90,lane-change
+obu-3,34,1,8,18,inconsistent-position
+obu-4,82,3,34,92,collision-warning
+obu-5,48,2,24,86,traffic-density
+obu-6,22,1,7,84,periodic-status

@@ -11,9 +11,9 @@ build/
 dist/
 *.egg-info/
 artifacts/
-data/
+data/*
+!data/sample_vehicle_messages.csv
 datasets/
 checkpoints/
 weights/
 *.log
-
