@@ -28,6 +28,12 @@ The workflow reads six fixed synthetic messages from
 `data/sample_vehicle_messages.csv`; the manuscript evaluation seed list is
 stored separately in `configs/seeds.txt`.
 
+The Python workflow demonstrates the architecture. The separate cryptographic
+benchmark runs with `bash scripts/benchmark_crypto.sh` and requires a C++20
+compiler and OpenSSL development headers/libraries with SHAKE256. Its parameters
+match `configs/ntru_parameters.yaml`; raw measurements and checks are in
+`results/crypto_benchmark/`. See `crypto/benchmark/README.md` for the timing scope.
+
 ## 2. Manuscript Environment
 
 The manuscript reports Ubuntu 22.04 LTS, two NVIDIA GeForce RTX 4090 D GPUs
@@ -60,7 +66,7 @@ The files in `results/reported/` mirror manuscript table values:
 | CSV file | Manuscript table |
 | --- | --- |
 | `basic_operations.csv` | Table 4 |
-| `crypto_runtime.csv` | Table 5 |
+| `crypto_runtime.csv` | Table 6 |
 | `batch_verification.csv` | Table 7 |
 | `hyperparameter_sensitivity.csv` | Table 8 |
 | `ablation.csv` | Table 9 |

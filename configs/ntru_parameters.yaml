@@ -4,36 +4,42 @@ default_parameter_set: I
 parameter_sets:
   I:
     profile: lightweight
-    ring_dimension_d: 512
-    modulus_q: 12289
+    ring_dimension_d: 1024
+    cyclotomic_order_m: 2048
+    ring_polynomial: "X^1024 + 1"
+    modulus_q: 2101249
     keygen_gaussian_sigma: 1.1
-    masking_gaussian_sigma_y: 75
-    challenge_hamming_weight_omega: 32
+    masking_gaussian_sigma_y: 19114
+    challenge_hamming_weight_omega: 16
     security_bits: 128
   II:
     profile: standard
-    ring_dimension_d: 768
-    modulus_q: 18433
+    ring_dimension_d: 1536
+    cyclotomic_order_m: 4608
+    ring_polynomial: "X^1536 - X^768 + 1"
+    modulus_q: 10418689
     keygen_gaussian_sigma: 1.5
-    masking_gaussian_sigma_y: 140
-    challenge_hamming_weight_omega: 48
+    masking_gaussian_sigma_y: 77484
+    challenge_hamming_weight_omega: 24
     security_bits: 192
   III:
     profile: high
-    ring_dimension_d: 1024
-    modulus_q: 40961
+    ring_dimension_d: 2048
+    cyclotomic_order_m: 4096
+    ring_polynomial: "X^2048 + 1"
+    modulus_q: 14012417
     keygen_gaussian_sigma: 1.9
-    masking_gaussian_sigma_y: 240
-    challenge_hamming_weight_omega: 64
+    masking_gaussian_sigma_y: 90462
+    challenge_hamming_weight_omega: 31
     security_bits: 256
 
 published_bounds:
   coefficient_bound_y: "14 * sigma_y"
   coefficient_bound_z: "14 * sigma_y"
-  norm_bound_z: "14 * sigma_y * sqrt(d)"
-  private_key_norm_bound: "2 * sigma * sqrt(d)"
+  norm_bound_z: "14 * sigma_y * sqrt(d)"  # Per response polynomial.
+  private_key_norm_bound: "2 * sigma * sqrt(d)"  # Per two-polynomial secret pair.
   private_key_infinity_norm_bound: "sigma * sqrt(2 * ln(4 * d))"
-  rejection_sampling_constant: "exp(1 + 1/144) ~= 2.736"
+  rejection_sampling_constant: "exp(1 + 1/144) ~= 2.737"
   challenge_space_size: "binomial(d, omega) * 2^omega"
 
 mode_flags:

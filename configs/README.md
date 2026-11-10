@@ -4,7 +4,8 @@ These files collect only parameters stated in the manuscript or explicitly
 identified as public artifact metadata. Unreported training and implementation
 settings are omitted.
 
-- `ntru_parameters.yaml`: the three NTRU-GSC parameter sets in Table 3.
+- `ntru_parameters.yaml`: the three NTRU-GSC parameter sets, synchronized with
+  the cryptographic benchmark, including the cyclotomic rings and sampling bounds.
 - `fedql.yaml`: the reported state/action design, federation topology, training
   parameters, dataset counts, and poisoning settings.
 - `network.yaml`: the reported SUMO/Veins communication setup.

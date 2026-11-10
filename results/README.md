@@ -2,12 +2,13 @@
 
 The CSV files in `reported/` contain machine-readable copies of values reported
 in the manuscript. They are intended for inspection and direct comparison with
-the paper; raw logs and plotting utilities are not included.
+the paper. Cryptographic runtime measurements were updated using the standalone
+benchmark, with raw timings and checks in `crypto_benchmark/`.
 
 | CSV file | Manuscript table |
 | --- | --- |
 | `basic_operations.csv` | Table 4 |
-| `crypto_runtime.csv` | Table 5 |
+| `crypto_runtime.csv` | Table 6 |
 | `batch_verification.csv` | Table 7 |
 | `hyperparameter_sensitivity.csv` | Table 8 |
 | `ablation.csv` | Table 9 |

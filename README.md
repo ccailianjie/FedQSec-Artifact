@@ -6,7 +6,8 @@
 FedQSec combines federated Q-learning, adaptive NTRU-GSC modes, credit-based
 update filtering, a dynamic accumulator, and blockchain auditing for IoV
 security. This repository provides the framework components, reported settings,
-and table summaries associated with the manuscript.
+and table summaries associated with the manuscript. The Python workflow is an
+architecture demonstration rather than the complete experimental implementation.
 
 ## Features
 
@@ -99,7 +100,12 @@ distribution, mode selection, accumulator updates, and a PBFT receipt.
 | FedQL state/action flow | [`fl/`](fl/), [`examples/demo.py`](examples/demo.py) | `python examples/demo.py` |
 | Credit filtering and reward reversal | [`aggregators/`](aggregators/), [`attackers/`](attackers/) | `python batchrun.py` |
 | PBFT quorum accounting | [`blockchain/`](blockchain/) | `python blockchain/pbft_study.py` |
-| Tables 4, 5, 7–12 | [`results/reported/`](results/reported/) | `python scripts/inspect_reported.py` |
+| Cryptographic runtime (Table 6) | [`crypto/benchmark/`](crypto/benchmark/) | `bash scripts/benchmark_crypto.sh` |
+| Reported table summaries | [`results/reported/`](results/reported/) | `python scripts/inspect_reported.py` |
+
+The separate cryptographic benchmark requires a C++20 compiler and OpenSSL
+development headers/libraries with SHAKE256. See
+[`crypto/benchmark/README.md`](crypto/benchmark/README.md) for its parameters and timing scope.
 
 ## Experiment Environment
 
@@ -120,8 +126,8 @@ parameters are in [`configs/`](configs/), with the software environment in
 
 ## Results and Datasets
 
-[`results/reported/`](results/reported/) contains CSV summaries for manuscript
-Tables 4, 5, and 7–12. The data sources are:
+[`results/reported/`](results/reported/) contains the manuscript table summaries,
+including the updated cryptographic runtime measurements for Table 6. The data sources are:
 
 - [VeReMi position-falsification dataset](https://github.com/aektasharma/Veremi-dataset-classification.git)
 - [NGSIM US-101 vehicle-trajectory dataset mirror](https://gitcode.com/open-source-toolkit/e3a10)

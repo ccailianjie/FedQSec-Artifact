@@ -12,9 +12,8 @@ architecture demonstration.
 | II | 1536 | 4608 | 10418689 | 1.5 | 77484 | 24 | X^1536-X^768+1 |
 | III | 2048 | 4096 | 14012417 | 1.9 | 90462 | 31 | X^2048+1 |
 
-The executable contains its parameter profiles in `bench.cpp`; the result
-metadata records these profiles. The older framework configuration is not used
-by this standalone benchmark.
+The executable contains its parameter profiles in `bench.cpp`, matching
+`configs/ntru_parameters.yaml`; the result metadata records these profiles.
 
 ## Run
 
