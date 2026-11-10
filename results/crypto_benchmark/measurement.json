@@ -1,0 +1,108 @@
+{
+  "implementation": "Four-response NTRU-GSC C++20 reference benchmark",
+  "manuscript": "mode_title__39_(1).pdf",
+  "original_artifact_commit": "b5647ed85f208c9b5e2f32facd3085b5c5299508",
+  "source_sha256": "1ffe230c448c6e203de722d64013d21613cf8c2258fcc70e58a7ef5a17f47de0",
+  "message_bytes": 256,
+  "samples_per_seed": 100,
+  "warmup_per_seed": 20,
+  "seed_count": 10,
+  "seeds": [
+    20260529,
+    20260530,
+    20260531,
+    20260532,
+    20260533,
+    20260534,
+    20260535,
+    20260536,
+    20260537,
+    20260538
+  ],
+  "dispersion": "sample standard deviation of per-seed mean times; all observations retained",
+  "gaussian": "finite-precision inverse-CDF discrete Gaussian, truncated at 14 sigma; variable time",
+  "random_stream": "AES-256-CTR; public benchmark seeds; not production key seeding",
+  "polynomial_backend": "NTT for dense products; exact sparse multiplication for ternary challenges",
+  "system_setup": "NTT roots, Gaussian CDFs, h, a, a_sig and common fixed spectra excluded from per-operation timing",
+  "keygen": "one vehicle and one parameter set, including user secret, KGC partial secret, pseudonym, KEM keys and partial-key validation; no blockchain/network",
+  "verify": "single signature authentication plus norm and accumulator-update checks; not unsigncryption",
+  "rejection": "actual joint rejection sampling with M=exp(1+1/144); all unsuccessful attempts timed",
+  "serialization": "length-delimited little-endian int32 polynomials; 2-bit packed reconciliation auxiliary values; byte payloads",
+  "exclusions": "network, blockchain, persistent replay-log I/O, HMAC sessions, security reductions and side-channel hardening",
+  "ntt_profiles": [
+    {
+      "set": 1,
+      "d": 1024,
+      "m": 2048,
+      "q": 2101249,
+      "sigma": 1.1,
+      "sigma_y": 19114.0,
+      "omega": 16
+    },
+    {
+      "set": 2,
+      "d": 1536,
+      "m": 4608,
+      "q": 10418689,
+      "sigma": 1.5,
+      "sigma_y": 77484.0,
+      "omega": 24
+    },
+    {
+      "set": 3,
+      "d": 2048,
+      "m": 4096,
+      "q": 14012417,
+      "sigma": 1.9,
+      "sigma_y": 90462.0,
+      "omega": 31
+    }
+  ],
+  "checks": [
+    {
+      "set": 1,
+      "schoolbook_cases": 5,
+      "ntt_multiply_ms": 0.29238,
+      "schoolbook_multiply_ms": 2.1451,
+      "ntt_speedup": 7.33671,
+      "roundtrips": 300,
+      "tamper_checks": "passed",
+      "reconciliation_cases": 100,
+      "max_noise_inf": 253,
+      "observed_max_shift_l2": 287.729,
+      "signature_attempts": 241,
+      "status": "passed"
+    },
+    {
+      "set": 2,
+      "schoolbook_cases": 5,
+      "ntt_multiply_ms": 0.592797,
+      "schoolbook_multiply_ms": 4.89239,
+      "ntt_speedup": 8.25307,
+      "roundtrips": 300,
+      "tamper_checks": "passed",
+      "reconciliation_cases": 100,
+      "max_noise_inf": 705,
+      "observed_max_shift_l2": 709.233,
+      "signature_attempts": 276,
+      "status": "passed"
+    },
+    {
+      "set": 3,
+      "schoolbook_cases": 5,
+      "ntt_multiply_ms": 0.627259,
+      "schoolbook_multiply_ms": 8.7753,
+      "ntt_speedup": 13.9899,
+      "roundtrips": 300,
+      "tamper_checks": "passed",
+      "reconciliation_cases": 100,
+      "max_noise_inf": 1115,
+      "observed_max_shift_l2": 986.224,
+      "signature_attempts": 277,
+      "status": "passed"
+    }
+  ],
+  "manuscript_sha256": "09ca3384e94fbb1a3221e620bbea3b3c97e74809e234da26f94ad60fb3426598",
+  "ntt_acceleration_measurement": "Five uncached dense products per set, outside the operation timing, versus schoolbook multiplication; small microbenchmark, not a system speedup.",
+  "source_file": "crypto/benchmark/bench.cpp"
+}
