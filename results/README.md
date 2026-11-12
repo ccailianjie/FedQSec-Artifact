@@ -7,7 +7,7 @@ benchmark, with raw timings and checks in `crypto_benchmark/`.
 
 | CSV file | Manuscript table |
 | --- | --- |
-| `basic_operations.csv` | Table 4 |
+| `basic_operations.csv` | Table 5 |
 | `crypto_runtime.csv` | Table 6 |
 | `batch_verification.csv` | Table 7 |
 | `hyperparameter_sensitivity.csv` | Table 8 |

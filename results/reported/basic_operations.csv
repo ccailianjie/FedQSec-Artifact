@@ -1,7 +1,7 @@
 operation,notation,time_ms
-Polynomial multiplication,T_N,0.47
-Gaussian sampling,T_g,0.08
-Hash operation,T_h,0.003
-Modular addition,T_A,0.009
+Polynomial multiplication,T_N,0.34
+Gaussian sampling,T_g,0.03
+Hash operation,T_h,0.001
+Modular addition,T_A,0.004
 XOR operation,T_X,0.001
 Encoding function,T_F,0.001
